@@ -22,6 +22,8 @@ public class VerificationCodeService {
     
     @Autowired
     SvcVerificationCodeClient svcVerificationCodeClient;
+    @Autowired
+    SvcPassengerUserClient svcPassengerUserClient;
     String verificationCodePrefix = "passenger-verification-code-";
     @Autowired
     StringRedisTemplate strRedisTemplate;
@@ -60,7 +62,12 @@ public class VerificationCodeService {
         if (!verificationCode.trim().equals(redisCode.trim())){
             return ResponseResult.fail(CommonStatusEnum.VERIFICATION_CODE_ERROR.getCode(), CommonStatusEnum.VERIFICATION_CODE_ERROR.getValue());
         }
-    
+
+        // judge if there already exist this user
+        VerificationCodeDTO verificationCodeDTO = new VerificationCodeDTO();
+        verificationCodeDTO.setPassengerPhone(passengerPhone);
+        svcPassengerUserClient.loginOrRegister(verificationCodeDTO);
+
         // issue token
         TokenResponse tokenResponse = new TokenResponse();
         tokenResponse.setToken("token value");
