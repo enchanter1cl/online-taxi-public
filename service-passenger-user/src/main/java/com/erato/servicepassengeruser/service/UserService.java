@@ -9,10 +9,7 @@ import org.springframework.stereotype.Service;
  */
 
 @Service
-public class UserService {
+public interface UserService {
     
-    public ResponseResult loginOrRegister(String passengerPhone) {
-        System.out.println("i m called");
-        return ResponseResult.success();
-    }
+    ResponseResult loginOrRegister(String passengerPhone);
 }
