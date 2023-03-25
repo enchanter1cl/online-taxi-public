@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.erato.servicepassengeruser.dao.PassengerUserDao">
+
+    <resultMap type="com.erato.servicepassengeruser.entity.PassengerUser" id="PassengerUserMap">
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="gmtCreate" column="gmt_create" jdbcType="TIMESTAMP"/>
+        <result property="gmtModified" column="gmt_modified" jdbcType="TIMESTAMP"/>
+        <result property="passengerPhone" column="passenger_phone" jdbcType="VARCHAR"/>
+        <result property="passengerName" column="passenger_name" jdbcType="VARCHAR"/>
+        <result property="passengerGender" column="passenger_gender" jdbcType="INTEGER"/>
+        <result property="state" column="state" jdbcType="INTEGER"/>
+        <result property="profilePhoto" column="profile_photo" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--查询单个-->
+    <select id="queryById" resultMap="PassengerUserMap">
+        select id,
+               gmt_create,
+               gmt_modified,
+               passenger_phone,
+               passenger_name,
+               passenger_gender,
+               state,
+               profile_photo
+        from passenger_user
+        where id = #{id}
+    </select>
+
+    <!--查询指定行数据-->
+    <select id="queryAllByLimit" resultMap="PassengerUserMap">
+        select
+        id, gmt_create, gmt_modified, passenger_phone, passenger_name, passenger_gender, state, profile_photo
+        from passenger_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="passengerPhone != null and passengerPhone != ''">
+                and passenger_phone = #{passengerPhone}
+            </if>
+            <if test="passengerName != null and passengerName != ''">
+                and passenger_name = #{passengerName}
+            </if>
+            <if test="passengerGender != null">
+                and passenger_gender = #{passengerGender}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="profilePhoto != null and profilePhoto != ''">
+                and profile_photo = #{profilePhoto}
+            </if>
+        </where>
+        limit #{pageable.offset}, #{pageable.pageSize}
+    </select>
+
+    <!--统计总行数-->
+    <select id="count" resultType="java.lang.Long">
+        select count(1)
+        from passenger_user
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="gmtCreate != null">
+                and gmt_create = #{gmtCreate}
+            </if>
+            <if test="gmtModified != null">
+                and gmt_modified = #{gmtModified}
+            </if>
+            <if test="passengerPhone != null and passengerPhone != ''">
+                and passenger_phone = #{passengerPhone}
+            </if>
+            <if test="passengerName != null and passengerName != ''">
+                and passenger_name = #{passengerName}
+            </if>
+            <if test="passengerGender != null">
+                and passenger_gender = #{passengerGender}
+            </if>
+            <if test="state != null">
+                and state = #{state}
+            </if>
+            <if test="profilePhoto != null and profilePhoto != ''">
+                and profile_photo = #{profilePhoto}
+            </if>
+        </where>
+    </select>
+
+    <!--新增所有列-->
+    <insert id="insert" keyProperty="id" useGeneratedKeys="true">
+        insert into passenger_user(gmt_create, gmt_modified, passenger_phone, passenger_name, passenger_gender, state,
+                                   profile_photo)
+        values (#{gmtCreate}, #{gmtModified}, #{passengerPhone}, #{passengerName}, #{passengerGender}, #{state},
+                #{profilePhoto})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into passenger_user(gmt_create, gmt_modified, passenger_phone, passenger_name, passenger_gender, state,
+        profile_photo)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.gmtCreate}, #{entity.gmtModified}, #{entity.passengerPhone}, #{entity.passengerName},
+            #{entity.passengerGender}, #{entity.state}, #{entity.profilePhoto})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="id" useGeneratedKeys="true">
+        insert into passenger_user(gmt_create, gmt_modified, passenger_phone, passenger_name, passenger_gender, state,
+        profile_photo)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.gmtCreate}, #{entity.gmtModified}, #{entity.passengerPhone}, #{entity.passengerName},
+            #{entity.passengerGender}, #{entity.state}, #{entity.profilePhoto})
+        </foreach>
+        on duplicate key update
+        gmt_create = values(gmt_create),
+        gmt_modified = values(gmt_modified),
+        passenger_phone = values(passenger_phone),
+        passenger_name = values(passenger_name),
+        passenger_gender = values(passenger_gender),
+        state = values(state),
+        profile_photo = values(profile_photo)
+    </insert>
+
+    <!--通过主键修改数据-->
+    <update id="update">
+        update passenger_user
+        <set>
+            <if test="gmtCreate != null">
+                gmt_create = #{gmtCreate},
+            </if>
+            <if test="gmtModified != null">
+                gmt_modified = #{gmtModified},
+            </if>
+            <if test="passengerPhone != null and passengerPhone != ''">
+                passenger_phone = #{passengerPhone},
+            </if>
+            <if test="passengerName != null and passengerName != ''">
+                passenger_name = #{passengerName},
+            </if>
+            <if test="passengerGender != null">
+                passenger_gender = #{passengerGender},
+            </if>
+            <if test="state != null">
+                state = #{state},
+            </if>
+            <if test="profilePhoto != null and profilePhoto != ''">
+                profile_photo = #{profilePhoto},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--通过主键删除-->
+    <delete id="deleteById">
+        delete
+        from passenger_user
+        where id = #{id}
+    </delete>
+
+</mapper>
+

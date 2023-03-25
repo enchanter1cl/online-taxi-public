@@ -2,6 +2,9 @@ package com.erato.servicepassengeruser.controller;
 
 import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.internalcommon.request.VerificationCodeDTO;
+import com.erato.servicepassengeruser.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -13,8 +16,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class UserController {
     
-    public ResponseResult loginOrReg(@RequestBody VerificationCodeDTO verificationCodeDTO) {
+    @Autowired
+    UserService userService;
     
-        return ResponseResult.success();
+    @GetMapping("/user")
+    public ResponseResult loginOrRegister(@RequestBody VerificationCodeDTO verificationCodeDTO) {
+    
+        String passengerPhone = verificationCodeDTO.getPassengerPhone();
+        System.out.println("passengerPhone:"+ passengerPhone);
+        
+        return userService.loginOrRegister(passengerPhone);
     }
 }

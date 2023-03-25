@@ -1,8 +1,10 @@
 package com.erato.apipassenger.service;
 
+import com.erato.apipassenger.remote.SvcPassengerUserClient;
 import com.erato.apipassenger.remote.SvcVerificationCodeClient;
 import com.erato.internalcommon.constant.CommonStatusEnum;
 import com.erato.internalcommon.dto.ResponseResult;
+import com.erato.internalcommon.request.VerificationCodeDTO;
 import com.erato.internalcommon.response.NumberCodeResponse;
 import com.erato.internalcommon.response.TokenResponse;
 import org.apache.commons.lang.StringUtils;
