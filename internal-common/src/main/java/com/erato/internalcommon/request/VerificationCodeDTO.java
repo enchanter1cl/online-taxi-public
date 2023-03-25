@@ -1,4 +1,4 @@
-package com.erato.apipassenger.request;
+package com.erato.internalcommon.request;
 
 import lombok.Data;
 

@@ -1,6 +1,6 @@
 package com.erato.apipassenger.controller;
 
-import com.erato.apipassenger.request.VerificationCodeDTO;
+import com.erato.internalcommon.request.VerificationCodeDTO;
 import com.erato.apipassenger.service.VerificationCodeService;
 import com.erato.internalcommon.dto.ResponseResult;
 import org.springframework.beans.factory.annotation.Autowired;
