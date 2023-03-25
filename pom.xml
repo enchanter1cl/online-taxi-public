@@ -5,7 +5,10 @@
   <groupId>com.erato</groupId>
   <artifactId>online-taxi-public</artifactId>
   <version>1.0</version>
-  <packaging>jar</packaging>
+    <modules>
+        <module>internal-common</module>
+    </modules>
+    <packaging>pom</packaging>
 
   <name>online-taxi-public</name>
   <url>http://maven.apache.org</url>
