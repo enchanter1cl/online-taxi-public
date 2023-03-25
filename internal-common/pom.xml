@@ -8,7 +8,7 @@
 
     <modelVersion>4.0.0</modelVersion>
     <artifactId>internal-common</artifactId>
-    <name>Archetype - internal-common</name>
+    <name>internal-common</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
