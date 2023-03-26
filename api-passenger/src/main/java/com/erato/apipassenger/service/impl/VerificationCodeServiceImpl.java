@@ -32,6 +32,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     @Autowired
     StringRedisTemplate strRedisTemplate;
     
+    @Override
     public ResponseResult generateCode(String passengerPhone) {
         // remote call verification-code service
         ResponseResult<NumberCodeResponse> numberCodeResp = svcVerificationCodeClient.getNumberCode();
@@ -46,6 +47,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         return ResponseResult.success();
     }
     
+    @Override
     public ResponseResult checkCode(String passengerPhone, String verificationCode) {
         
         // read phone's verification code from redis

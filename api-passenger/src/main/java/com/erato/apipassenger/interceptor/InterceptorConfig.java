@@ -29,6 +29,7 @@ public class InterceptorConfig implements WebMvcConfigurer {
                 //path don't need to
                 .excludePathPatterns("/noauthTest")
                 .excludePathPatterns("/verification-code")
-                .excludePathPatterns("/verification-code-check");
+                .excludePathPatterns("/verification-code-check")
+                .excludePathPatterns("/token-refresh");//就是因为accessToken invalid才需要用你来刷新
     }
 }

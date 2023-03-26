@@ -27,17 +27,17 @@ public class JwtUtils {
      */
     private static final String JWT_KEY_IDENTITY = "identity";
     
-    private static final String JWT_TYPE = "tokenType";
+    private static final String JWT_KEY_TYPE = "tokenType";
+    
+    private static final String JWT_KEY_TIME = "";
     
     public static String generateToken(String passengerPhone, String identity, String tokenType) {
         Map<String, String> map = new HashMap<>();
         map.put(JWT_KEY_PHONE, passengerPhone);
         map.put(JWT_KEY_IDENTITY, identity);
-    
-        //expire time
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 1);
-        Date expireTime = calendar.getTime();
+        map.put(JWT_KEY_TYPE, tokenType);
+        //防止每次生成的 token 一样
+        map.put(JWT_KEY_TIME, Calendar.getInstance().getTime().toString());
     
         JWTCreator.Builder builder = JWT.create();
         
