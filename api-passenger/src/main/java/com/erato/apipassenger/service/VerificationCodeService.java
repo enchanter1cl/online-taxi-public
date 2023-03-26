@@ -65,7 +65,7 @@ public class VerificationCodeService {
             return ResponseResult.fail(CommonStatusEnum.VERIFICATION_CODE_ERROR.getCode(), CommonStatusEnum.VERIFICATION_CODE_ERROR.getValue());
         }
 
-        // judge if there already exist this user
+        // judge if there already exist this user then sign in or sign up
         VerificationCodeDTO verificationCodeDTO = new VerificationCodeDTO();
         verificationCodeDTO.setPassengerPhone(passengerPhone);
         svcPassengerUserClient.loginOrRegister(verificationCodeDTO);
