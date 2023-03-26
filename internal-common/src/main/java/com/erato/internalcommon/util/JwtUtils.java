@@ -41,7 +41,7 @@ public class JwtUtils {
         map.forEach(builder::withClaim);
         
         //integrate expire time
-        builder.withExpiresAt(expireTime);
+//        builder.withExpiresAt(expireTime);
         
         //generate token
         String sign = builder.sign(Algorithm.HMAC256(SIGN));

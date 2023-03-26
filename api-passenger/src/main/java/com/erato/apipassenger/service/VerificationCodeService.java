@@ -5,7 +5,6 @@ import com.erato.apipassenger.remote.SvcVerificationCodeClient;
 import com.erato.internalcommon.constant.CommonStatusEnum;
 import com.erato.internalcommon.constant.IdentityConstant;
 import com.erato.internalcommon.dto.ResponseResult;
-import com.erato.internalcommon.dto.TokenResult;
 import com.erato.internalcommon.request.VerificationCodeDTO;
 import com.erato.internalcommon.response.NumberCodeResponse;
 import com.erato.internalcommon.response.TokenResponse;
@@ -29,7 +28,10 @@ public class VerificationCodeService {
     SvcVerificationCodeClient svcVerificationCodeClient;
     @Autowired
     SvcPassengerUserClient svcPassengerUserClient;
+    /*passenger verification code prefix*/
     String verificationCodePrefix = "passenger-verification-code-";
+    /*token prefix*/
+    String tokenPrefix = "token-";
     @Autowired
     StringRedisTemplate strRedisTemplate;
     
@@ -39,7 +41,7 @@ public class VerificationCodeService {
         int numberCode = numberCodeResp.getData().getNumberCode();
     
         // store into redis
-        String key = generateKey(passengerPhone);
+        String key = generateVerificationCodeKey(passengerPhone);
         strRedisTemplate.opsForValue().set(key, numberCode+"", 2, TimeUnit.MINUTES);
         
         //send message text  腾讯 阿里 华信 容联..
@@ -51,14 +53,17 @@ public class VerificationCodeService {
      * generate Key according to phoneNumber
      * @return
      */
-    private String generateKey(String passengerPhone) {
+    private String generateVerificationCodeKey(String passengerPhone) {
         return verificationCodePrefix + passengerPhone;
+    }
+    private String generateTokenKey(String phone, String identity) {
+        return tokenPrefix + phone + "-" + identity;
     }
     
     public ResponseResult checkCode(String passengerPhone, String verificationCode) {
         
         // read phone's verification code from redis
-        String key = generateKey(passengerPhone);
+        String key = generateVerificationCodeKey(passengerPhone);
         String redisCode = strRedisTemplate.opsForValue().get(key);
         if (StringUtils.isBlank(redisCode)) {
             return ResponseResult.fail(CommonStatusEnum.VERIFICATION_CODE_ERROR.getCode(), CommonStatusEnum.VERIFICATION_CODE_ERROR.getValue());
@@ -76,6 +81,11 @@ public class VerificationCodeService {
         // issue token
            /*不该用魔法值，应该用constant*/
         String token = JwtUtils.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        
+        // store token into redis
+        String tokenKey = generateTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        strRedisTemplate.opsForValue().set(tokenKey, token, 30, TimeUnit.DAYS);
+        
         
         //response
         TokenResponse tokenResponse = new TokenResponse();
