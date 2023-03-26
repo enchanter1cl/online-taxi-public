@@ -3,10 +3,13 @@ package com.erato.apipassenger.service;
 import com.erato.apipassenger.remote.SvcPassengerUserClient;
 import com.erato.apipassenger.remote.SvcVerificationCodeClient;
 import com.erato.internalcommon.constant.CommonStatusEnum;
+import com.erato.internalcommon.constant.IdentityConstant;
 import com.erato.internalcommon.dto.ResponseResult;
+import com.erato.internalcommon.dto.TokenResult;
 import com.erato.internalcommon.request.VerificationCodeDTO;
 import com.erato.internalcommon.response.NumberCodeResponse;
 import com.erato.internalcommon.response.TokenResponse;
+import com.erato.internalcommon.util.JwtUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -71,8 +74,12 @@ public class VerificationCodeService {
         svcPassengerUserClient.loginOrRegister(verificationCodeDTO);
 
         // issue token
+           /*不该用魔法值，应该用constant*/
+        String token = JwtUtils.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        
+        //response
         TokenResponse tokenResponse = new TokenResponse();
-        tokenResponse.setToken("token value");
+        tokenResponse.setToken(token);
         return ResponseResult.success().setData(tokenResponse);
     }
 }
