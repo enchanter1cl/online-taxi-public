@@ -4,9 +4,7 @@ import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.internalcommon.request.VerificationCodeDTO;
 import com.erato.servicepassengeruser.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author ZhangYuan
@@ -19,7 +17,7 @@ public class UserController {
     @Autowired
     UserService userService;
     
-    @GetMapping("/user")
+    @PostMapping("/user")
     public ResponseResult loginOrRegister(@RequestBody VerificationCodeDTO verificationCodeDTO) {
     
         String passengerPhone = verificationCodeDTO.getPassengerPhone();
