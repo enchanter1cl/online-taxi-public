@@ -6,6 +6,8 @@ import com.erato.servicepassengeruser.entity.PassengerUser;
 import com.erato.servicepassengeruser.service.UserService;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * (PassengerUser)表服务实现类
@@ -20,10 +22,21 @@ public class UserServiceImpl implements UserService {
     private PassengerUserDao passengerUserDao;
     public ResponseResult loginOrRegister(String passengerPhone) {
         // query user info by phone
-        PassengerUser passengerUser = passengerUserDao.queryByPhone(passengerPhone);
-        System.out.println("User:"+passengerUser);
+        PassengerUser resPassengerUser = passengerUserDao.queryByPhone(passengerPhone);
         // judge if user already exist
-        
+        if (null == resPassengerUser){
+            PassengerUser passengerUser = new PassengerUser();
+            passengerUser.setPassengerName("李四");
+            passengerUser.setPassengerGender((byte) 0);
+            passengerUser.setPassengerPhone(passengerPhone);
+            passengerUser.setState((byte) 0);
+    
+            LocalDateTime now  = LocalDateTime.now();
+            passengerUser.setGmtCreate(now);
+            passengerUser.setGmtModified(now);
+            
+            passengerUserDao.insert(passengerUser);
+        }
         // if not exits, insert user info
         
         
