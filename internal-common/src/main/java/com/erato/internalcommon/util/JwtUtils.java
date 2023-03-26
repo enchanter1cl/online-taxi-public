@@ -24,7 +24,9 @@ public class JwtUtils {
      */
     private static final String JWT_KEY_IDENTITY = "identity";
     
-    public static String generateToken(String passengerPhone, String identity) {
+    private static final String JWT_TYPE = "tokenType";
+    
+    public static String generateToken(String passengerPhone, String identity, String tokenType) {
         Map<String, String> map = new HashMap<>();
         map.put(JWT_KEY_PHONE, passengerPhone);
         map.put(JWT_KEY_IDENTITY, identity);
@@ -68,7 +70,7 @@ public class JwtUtils {
     
     public static void main(String[] args) {
     
-        String s = generateToken("18374874458", "1");
+        String s = generateToken("18374874458", "1", "access");
         System.out.println("generated token:" + s);
     }
 }

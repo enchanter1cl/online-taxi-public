@@ -4,6 +4,7 @@ import com.erato.apipassenger.remote.SvcPassengerUserClient;
 import com.erato.apipassenger.remote.SvcVerificationCodeClient;
 import com.erato.internalcommon.constant.CommonStatusEnum;
 import com.erato.internalcommon.constant.IdentityConstant;
+import com.erato.internalcommon.constant.TokenConstant;
 import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.internalcommon.request.VerificationCodeDTO;
 import com.erato.internalcommon.response.NumberCodeResponse;
@@ -64,16 +65,20 @@ public class VerificationCodeService {
 
         // issue token
            /*不该用魔法值，应该用constant*/
-        String token = JwtUtils.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
+        String accessToken = JwtUtils.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY, TokenConstant.ACCESS_TOKEN_TYPE);
+        String refreshToken = JwtUtils.generateToken(passengerPhone, IdentityConstant.PASSENGER_IDENTITY, TokenConstant.REFRESH_TOKEN_TYPE);
         
         // store token into redis
-        String tokenKey = RedisPrefixUtils.generateTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY);
-        strRedisTemplate.opsForValue().set(tokenKey, token, 30, TimeUnit.DAYS);
+        String accessTokenKey = RedisPrefixUtils.generateTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY, TokenConstant.ACCESS_TOKEN_TYPE);
+        strRedisTemplate.opsForValue().set(accessTokenKey, accessToken, 30, TimeUnit.DAYS);
         
+        String refreshTokenKey = RedisPrefixUtils.generateTokenKey(passengerPhone, IdentityConstant.PASSENGER_IDENTITY, TokenConstant.REFRESH_TOKEN_TYPE);
+        strRedisTemplate.opsForValue().set(refreshTokenKey, refreshToken, 31, TimeUnit.DAYS);
         
         //response
         TokenResponse tokenResponse = new TokenResponse();
-        tokenResponse.setToken(token);
+        tokenResponse.setAccessToken(accessToken);
+        tokenResponse.setRefreshToken(refreshToken);
         return ResponseResult.success().setData(tokenResponse);
     }
 }

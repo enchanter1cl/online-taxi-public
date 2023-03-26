@@ -3,6 +3,7 @@ package com.erato.apipassenger.interceptor;
 import com.auth0.jwt.exceptions.AlgorithmMismatchException;
 import com.auth0.jwt.exceptions.SignatureVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
+import com.erato.internalcommon.constant.TokenConstant;
 import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.internalcommon.dto.TokenResult;
 import com.erato.internalcommon.util.JwtUtils;
@@ -56,20 +57,19 @@ public class JwtInterceptor implements HandlerInterceptor {
             //fetch token from redis
             String phone = tokenResult.getPhone();
             String identity = tokenResult.getIdentity();
-            String tokenKey = RedisPrefixUtils.generateTokenKey(phone, identity);
+            String accessTokenKey = RedisPrefixUtils.generateTokenKey(phone, identity, TokenConstant.ACCESS_TOKEN_TYPE);
     
-            String tokenRedis = strRedisTemplate.opsForValue().get(tokenKey);
-            if (StringUtils.isBlank(tokenRedis)) {
+            String accessTokenRedis = strRedisTemplate.opsForValue().get(accessTokenKey);
+            if (StringUtils.isBlank(accessTokenRedis)) {
                 resMessage = "token invalid";
                 resFlag = false;
             } else {
-                if (!token.trim().equals(tokenRedis.trim())) {
+                if (!token.trim().equals(accessTokenRedis.trim())) {
                     resMessage = "token invalid";
                     resFlag = false;
                 }
             }
         }
-        
         
         if (!resFlag) {
             PrintWriter out = response.getWriter();
