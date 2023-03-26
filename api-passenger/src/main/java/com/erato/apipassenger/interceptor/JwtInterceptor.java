@@ -33,22 +33,7 @@ public class JwtInterceptor implements HandlerInterceptor {
         String resMessage = "";
     
         String token = request.getHeader("Authorization");
-        TokenResult tokenResult = null;
-        try {
-            tokenResult = JwtUtils.parseToken(token);
-        } catch (SignatureVerificationException e) {
-            resMessage = "token signature verification error";
-            resFlag = false;
-        } catch (TokenExpiredException e) {
-            resMessage = "token expired error";
-            resFlag = false;
-        } catch (AlgorithmMismatchException e) {
-            resMessage = "token algorithm mismatch error";
-            resFlag = false;
-        } catch (Exception e) {
-            resMessage = "token invalid";
-            resFlag = false;
-        }
+        TokenResult tokenResult = JwtUtils.checkToken(token);
         
         if (null == tokenResult) {
             resMessage = "token invalid";
@@ -60,14 +45,9 @@ public class JwtInterceptor implements HandlerInterceptor {
             String accessTokenKey = RedisPrefixUtils.generateTokenKey(phone, identity, TokenConstant.ACCESS_TOKEN_TYPE);
     
             String accessTokenRedis = strRedisTemplate.opsForValue().get(accessTokenKey);
-            if (StringUtils.isBlank(accessTokenRedis)) {
+            if ((StringUtils.isBlank(accessTokenRedis)) || !token.trim().equals(accessTokenRedis.trim())) {
                 resMessage = "token invalid";
                 resFlag = false;
-            } else {
-                if (!token.trim().equals(accessTokenRedis.trim())) {
-                    resMessage = "token invalid";
-                    resFlag = false;
-                }
             }
         }
         

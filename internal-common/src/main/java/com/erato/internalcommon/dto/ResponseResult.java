@@ -23,6 +23,11 @@ public class ResponseResult<T> {
         return new ResponseResult().setCode(CommonStatusEnum.SUCCESS.getCode()).setMessage(CommonStatusEnum.SUCCESS.getValue());
     }
     
+    /* for chain, for custom status */
+    public static <T> ResponseResult fail() {
+        return new ResponseResult();
+    }
+    
     /**
      * custom status
      * @param code

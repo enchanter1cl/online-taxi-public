@@ -3,6 +3,9 @@ package com.erato.internalcommon.util;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTCreator;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.erato.internalcommon.dto.TokenResult;
 import java.util.Calendar;
@@ -65,6 +68,33 @@ public class JwtUtils {
         TokenResult tokenResult = new TokenResult();
         tokenResult.setPhone(phone);
         tokenResult.setIdentity(identity);
+        return tokenResult;
+    }
+    
+    /**
+     * check token. Mainly to check if token has exception
+     * @param token
+     * @return
+     */
+    public static TokenResult checkToken(String token) {
+        boolean resFlag = true;
+        String resMessage = "";
+        TokenResult tokenResult = null;
+        try {
+            tokenResult = JwtUtils.parseToken(token);
+        } catch (SignatureVerificationException e) {
+            resMessage = "token signature verification error";
+            resFlag = false;
+        } catch (TokenExpiredException e) {
+            resMessage = "token expired error";
+            resFlag = false;
+        } catch (AlgorithmMismatchException e) {
+            resMessage = "token algorithm mismatch error";
+            resFlag = false;
+        } catch (Exception e) {
+            resMessage = "token invalid";
+            resFlag = false;
+        }
         return tokenResult;
     }
     
