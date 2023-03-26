@@ -23,6 +23,8 @@ public interface PassengerUserDao {
      */
     PassengerUser queryById(Long id);
     
+    PassengerUser queryByPhone(String passengerPhone);
+    
     /**
      * 统计总行数
      *

@@ -26,6 +26,9 @@
         from passenger_user
         where id = #{id}
     </select>
+    <select id="queryByPhone" resultMap="PassengerUserMap">
+        SELECT * FROM passenger_user WHERE passenger_phone = #{passengerPhone}
+    </select>
 
     <!--查询指定行数据-->
     <select id="queryAllByLimit" resultMap="PassengerUserMap">
