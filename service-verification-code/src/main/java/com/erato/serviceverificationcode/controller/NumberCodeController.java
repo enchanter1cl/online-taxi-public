@@ -2,7 +2,6 @@ package com.erato.serviceverificationcode.controller;
 
 import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.internalcommon.response.NumberCodeResponse;
-import net.sf.json.JSONObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 
 @RestController
-public class VerificationCodeController {
+public class NumberCodeController {
     
     @GetMapping("/numberCode/{size}")
     public ResponseResult numberCode(@PathVariable("size") int size){

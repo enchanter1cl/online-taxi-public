@@ -23,7 +23,8 @@ public class UserServiceImpl implements UserService {
     public ResponseResult loginOrRegister(String passengerPhone) {
         // query user info by phone
         PassengerUser resPassengerUser = passengerUserDao.queryByPhone(passengerPhone);
-        // judge if user already exist
+        // judge if user has already exist
+        // if not exits, insert user info
         if (null == resPassengerUser){
             PassengerUser passengerUser = new PassengerUser();
             passengerUser.setPassengerName("李四");
@@ -37,7 +38,6 @@ public class UserServiceImpl implements UserService {
             
             passengerUserDao.insert(passengerUser);
         }
-        // if not exits, insert user info
         
         
         return ResponseResult.success();
