@@ -1,0 +1,33 @@
+//创建猎鹰service
+{
+    "data": {
+        "name": "lieyingsvc0",
+        "sid": 915298
+    },
+    "errcode": 10000,
+    "errdetail": null,
+    "errmsg": "OK"
+}
+
+//创建终端
+{
+    "data": {
+        "name": "car1",
+        "tid": 662042095,
+        "sid": 915298
+    },
+    "errcode": 10000,
+    "errdetail": null,
+    "errmsg": "OK"
+}
+
+//track
+{
+    "data": {
+        "trname": "testtrack",
+        "trid": 20
+    },
+    "errcode": 10000,
+    "errdetail": null,
+    "errmsg": "OK"
+}
