@@ -23,6 +23,10 @@ public class ResponseResult<T> {
         return new ResponseResult().setCode(CommonStatusEnum.SUCCESS.getCode()).setMessage(CommonStatusEnum.SUCCESS.getValue());
     }
     
+    public static <T> ResponseResult<T> success(T data) {
+        return new ResponseResult().setCode(CommonStatusEnum.SUCCESS.getCode()).setMessage(CommonStatusEnum.SUCCESS.getValue()).setData(data);
+    }
+    
     /* for chain, for custom status */
     public static <T> ResponseResult fail() {
         return new ResponseResult();
