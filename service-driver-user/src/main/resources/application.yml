@@ -20,3 +20,7 @@ spring:
 mybatis:
   mapper-locations: classpath:/mapper/*.xml
   #type-aliases-package: com.erato.internalcommon.dto
+
+logging:
+  level:
+    com.erato.servicedriveruser.dao: debug
