@@ -64,7 +64,7 @@ public class ForecastPriceServiceImpl implements ForecastPriceService {
      * @param priceRule 计价规则
      * @return
      */
-    private static Double getPrice(Integer distance, Integer duration, PriceRule priceRule) {
+    private Double getPrice(Integer distance, Integer duration, PriceRule priceRule) {
 
         BigDecimal price = new BigDecimal(0);
 
