@@ -6,6 +6,7 @@ import com.erato.internalcommon.dto.PriceRule;
 import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.internalcommon.response.DirectionResponse;
 import com.erato.internalcommon.response.ForecastPriceResponse;
+import com.erato.internalcommon.util.BigDecimalUtils;
 import com.erato.serviceprice.dao.PriceRuleDao;
 import com.erato.serviceprice.remote.ServiceMapClient;
 import com.erato.serviceprice.service.ForecastPriceService;
@@ -48,7 +49,7 @@ public class ForecastPriceServiceImpl implements ForecastPriceService {
         PriceRule priceRule = priceRules.get(0);
 
         log.info("根据距离 时长 和计价规则，计算价格");
-        Double price = getPrice(distance, duration, priceRule);
+        Double price = getPriceOptimize(distance, duration, priceRule);
 
 
         ForecastPriceResponse forecastPriceResponse = new ForecastPriceResponse();
@@ -108,6 +109,40 @@ public class ForecastPriceServiceImpl implements ForecastPriceService {
         return price.doubleValue();
     }
 
+    private Double getPriceOptimize(Integer distance, Integer duration, PriceRule priceRule) {
+        double price = 0;
+
+        //1 起步价
+        Double startFare = priceRule.getStartFare();
+        price = BigDecimalUtils.add(price, startFare);
+
+        //2 里程费
+        double distanceMile = BigDecimalUtils.divide(distance, 1000);
+          //2.1 起步里程
+        double startMile = (double) priceRule.getStartMile();
+        double distanceSubtract = BigDecimalUtils.subtract(distanceMile, startMile);
+          //最终收费的里程数（总不能司机倒贴钱）
+        Double mile = distanceSubtract < 0 ? 0 : distanceSubtract;
+          //里程单价 元/km
+        Double unitPricePerMile = priceRule.getUnitPricePerMile();
+        double mileFare = BigDecimalUtils.multiply(unitPricePerMile, mile);
+        price = BigDecimalUtils.add(price, mileFare);
+
+        //3 时长费
+          //时长 转为分钟
+        double timeMinute = BigDecimalUtils.divide(duration, 60);
+         //计时单价
+        Double unitPricePerMinute = priceRule.getUnitPricePerMinute();
+        double timeFare = BigDecimalUtils.multiply(timeMinute, unitPricePerMinute);
+        price = BigDecimalUtils.add(price, timeFare);
+
+        //4 返回前 保险起见 设个精度
+        BigDecimal priceDecimal = BigDecimal.valueOf(price);
+        priceDecimal.setScale(2, BigDecimal.ROUND_HALF_UP);
+
+        return priceDecimal.doubleValue();
+    }
+
 //    public static void main(String[] args) {
 //
 //        PriceRule priceRule = new PriceRule();
@@ -116,7 +151,7 @@ public class ForecastPriceServiceImpl implements ForecastPriceService {
 //        priceRule.setUnitPricePerMile(1.80);
 //        priceRule.setUnitPricePerMinute(0.50);
 //
-//        Double price = getPrice(6500, 1800, priceRule);
+//        Double price = getPriceOptimize(6500, 1800, priceRule);
 //        System.out.println(price);
 //
 //    }
