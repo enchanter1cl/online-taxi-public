@@ -1,6 +1,6 @@
 package com.erato.serviceprice.dao;
 
-import com.erato.serviceprice.entity.PriceRule;
+import com.erato.internalcommon.dto.PriceRule;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

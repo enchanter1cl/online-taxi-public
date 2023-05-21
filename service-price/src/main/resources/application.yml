@@ -13,6 +13,6 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc://localhost:3306?taxi?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc://localhost:3306?taxi_price?characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: root

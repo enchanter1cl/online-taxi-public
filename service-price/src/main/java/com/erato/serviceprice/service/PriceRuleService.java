@@ -1,6 +1,6 @@
 package com.erato.serviceprice.service;
 
-import com.erato.serviceprice.entity.PriceRule;
+import com.erato.internalcommon.dto.PriceRule;
 
 /**
  * (PriceRule)表服务接口

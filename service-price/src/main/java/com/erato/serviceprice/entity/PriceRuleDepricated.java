@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @since 2023-05-21 18:42:01
  */
 @Data
-public class PriceRule implements Serializable {
+public class PriceRuleDepricated implements Serializable {
     private static final long serialVersionUID = 798286021656916079L;
 
     private String cityCode;

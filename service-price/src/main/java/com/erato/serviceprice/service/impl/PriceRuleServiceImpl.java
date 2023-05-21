@@ -1,9 +1,10 @@
 package com.erato.serviceprice.service.impl;
 
+import com.erato.internalcommon.dto.PriceRule;
 import com.erato.serviceprice.dao.PriceRuleDao;
-import com.erato.serviceprice.entity.PriceRule;
 import com.erato.serviceprice.service.PriceRuleService;
 import org.springframework.stereotype.Service;
+
 import javax.annotation.Resource;
 
 /**

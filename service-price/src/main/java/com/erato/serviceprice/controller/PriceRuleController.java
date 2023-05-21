@@ -1,10 +1,9 @@
 package com.erato.serviceprice.controller;
 
-import com.erato.serviceprice.entity.PriceRule;
+import com.erato.internalcommon.dto.PriceRule;
 import com.erato.serviceprice.service.PriceRuleService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
 import javax.annotation.Resource;
 
 /**
