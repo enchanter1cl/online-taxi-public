@@ -2,7 +2,6 @@ package com.erato.servicedriveruser.service.impl;
 
 import com.erato.internalcommon.dto.DriverUser;
 import com.erato.internalcommon.dto.ResponseResult;
-import com.erato.internalcommon.response.DriverUserExistsResponse;
 import com.erato.servicedriveruser.dao.DriverUserDao;
 import com.erato.servicedriveruser.service.DriverUserService;
 import org.springframework.stereotype.Service;
@@ -28,19 +27,20 @@ public class DriverUserServiceImpl implements DriverUserService {
 
         List<DriverUser> driverUsers = driverUserDao.queryAllByLimit(driverUserCondition);
         if (driverUsers.isEmpty()){
-            return ResponseResult.fail("司机不存在");
+            return ResponseResult.fail(3099, "司机不存在");
         }
         DriverUser driverUserDb = driverUsers.get(0);
 
-        int isExists = 1;
+        /* controller来做 */
+        //int isExists = 1;
 //        if (driverUserDb == null) {}
 
         //wrap return resp
-        DriverUserExistsResponse driverUserExistsResponse = new DriverUserExistsResponse();
-        driverUserExistsResponse.setDriverPhone(driverUserCondition.getDriverPhone());
-        driverUserExistsResponse.setIsExists(isExists);
+//        DriverUserExistsResponse driverUserExistsResponse = new DriverUserExistsResponse();
+//        driverUserExistsResponse.setDriverPhone(driverUserCondition.getDriverPhone());
+//        driverUserExistsResponse.setIsExists(isExists);
 
-        return ResponseResult.success(driverUserExistsResponse);
+        return ResponseResult.success(driverUserDb);
     }
 
     /**

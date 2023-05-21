@@ -2,6 +2,7 @@ package com.erato.servicedriveruser.controller;
 
 import com.erato.internalcommon.dto.DriverUser;
 import com.erato.internalcommon.dto.ResponseResult;
+import com.erato.internalcommon.response.DriverUserExistsResponse;
 import com.erato.servicedriveruser.service.DriverUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,9 +25,20 @@ public class DriverUserController {
     private DriverUserService driverUserService;
 
     @GetMapping("/check-driver/{phone}")
-    public ResponseResult getUser(@PathVariable("phone")String phone) {
+    public ResponseResult<DriverUserExistsResponse> getUser(@PathVariable("phone")String phone) {
 
-        return driverUserService.getDriverUserByPhone(phone);
+        ResponseResult<DriverUser> driverUserRes = driverUserService.getDriverUserByPhone(phone);
+        DriverUser driverUserDb = driverUserRes.getData();
+
+        DriverUserExistsResponse resp = new DriverUserExistsResponse();
+        int ifExists = 1;
+        if (driverUserDb == null) {
+            ifExists = 0;
+        }
+        resp.setDriverPhone(phone);
+        resp.setIsExists(ifExists);
+
+        return ResponseResult.success(resp);
     }
 
     /**
