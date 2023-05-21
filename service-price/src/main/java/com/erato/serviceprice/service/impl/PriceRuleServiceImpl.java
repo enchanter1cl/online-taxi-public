@@ -13,7 +13,7 @@ import javax.annotation.Resource;
  * @author makejava
  * @since 2023-05-21 18:42:02
  */
-@Service("priceRuleService")
+@Service
 public class PriceRuleServiceImpl implements PriceRuleService {
     @Resource
     private PriceRuleDao priceRuleDao;

@@ -11,6 +11,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableFeignClients
+//@MapperScan("com.erato")
 public class ServicePriceApp
 {
     public static void main( String[] args )

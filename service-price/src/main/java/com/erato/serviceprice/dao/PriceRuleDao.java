@@ -24,6 +24,8 @@ public interface PriceRuleDao {
      */
     PriceRule queryById(String cityCode);
 
+    List<PriceRule> queryAllByLimit(PriceRule priceRule);
+
 
     /**
      * 统计总行数

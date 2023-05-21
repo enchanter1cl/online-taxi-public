@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.erato.serviceprice.dao.PriceRuleDao">
 
-    <resultMap type="com.erato.serviceprice.entity.PriceRule" id="PriceRuleMap">
+    <resultMap type="com.erato.internalcommon.dto.PriceRule" id="PriceRuleMap">
         <result property="cityCode" column="city_code" jdbcType="VARCHAR"/>
         <result property="vehicleType" column="vehicle_type" jdbcType="VARCHAR"/>
         <result property="startFare" column="start_fare" jdbcType="NUMERIC"/>
@@ -48,7 +48,7 @@
                 and unit_price_per_minute = #{unitPricePerMinute}
             </if>
         </where>
-        limit #{pageable.offset}, #{pageable.pageSize}
+<!--         limit #{pageable.offset}, #{pageable.pageSize} -->
     </select>
 
     <!--统计总行数-->

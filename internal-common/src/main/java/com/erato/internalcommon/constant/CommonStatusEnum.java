@@ -16,7 +16,10 @@ public enum CommonStatusEnum {
     FAIL(0, "fail"),
     
     VERIFICATION_CODE_ERROR(1099, "验证码不正确"),
+
     TOKEN_ERROR(1199, "token error"),
+
+    PRICE_RULE_EMPTY(1300, "计价规则不存在")
     ;
     
     @Getter

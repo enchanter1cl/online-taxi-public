@@ -13,6 +13,10 @@ spring:
 
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc://localhost:3306?taxi_price?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    url: jdbc:mysql://121.37.71.228:3308/taxi_price?characterEncoding=utf-8&serverTimezone=GMT%2B8
     username: root
     password: root
+
+mybatis:
+  mapper-locations: classpath:/mapper/*.xml
+  #type-aliases-package: com.erato.internalcommon.dto
