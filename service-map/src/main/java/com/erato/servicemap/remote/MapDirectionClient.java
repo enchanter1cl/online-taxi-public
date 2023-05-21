@@ -46,12 +46,12 @@ public class MapDirectionClient {
         
         log.info(urlBuilder.toString());
         
-        // call api
+        // call api 调用高德接口
         ResponseEntity<String> directionResp = restTemplate.getForEntity(urlBuilder.toString(), String.class);
         String directionStr = directionResp.getBody();
         log.info("directionResp.body:{}", directionResp.getBody());
         
-        // parse result
+        // parse result 解析接口
         DirectionResponse directionResponse = parseDirectionEntity(directionStr);
     
     
@@ -65,10 +65,10 @@ public class MapDirectionClient {
         
             //str -> json obj   最外层
             JSONObject result = JSONObject.fromObject(directionStr);
-            if (result.has("status")) {
-                int status = result.getInt("status");
+            if (result.has(AmapConfigConstants.STATUS)) {
+                int status = result.getInt(AmapConfigConstants.STATUS);
                 if (status == 1) {
-                    if (result.has("route")) {
+                    if (result.has(AmapConfigConstants.ROUTE)) {
                         JSONObject routeObj = result.getJSONObject("route");
                         JSONArray pathsArr = routeObj.getJSONArray("paths");
                         JSONObject pathObj = pathsArr.getJSONObject(0);
