@@ -12,6 +12,6 @@ public class ForecastPriceDto {
     
     private String depLongitude;
     private String depLatitude;
-    private String desLongitude;
-    private String desLatitude;
+    private String destLongitude;
+    private String destLatitude;
 }

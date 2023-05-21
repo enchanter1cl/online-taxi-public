@@ -1,7 +1,6 @@
 package com.erato.servicemap.service;
 
 import com.erato.internalcommon.dto.ResponseResult;
-import org.springframework.stereotype.Service;
 
 /**
  * @author ZhangYuan
@@ -9,5 +8,5 @@ import org.springframework.stereotype.Service;
  */
 
 public interface DirectionService {
-    ResponseResult driving(String depLongitude, String depLatitude, String desLongitude, String desLatitude);
+    ResponseResult driving(String depLongitude, String depLatitude, String destLongitude, String destLatitude);
 }

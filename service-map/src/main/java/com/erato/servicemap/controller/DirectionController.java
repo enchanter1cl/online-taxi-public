@@ -32,9 +32,9 @@ public class DirectionController {
     
         String depLongitude = forecastPriceDto.getDepLongitude();
         String depLatitude = forecastPriceDto.getDepLatitude();
-        String desLongitude = forecastPriceDto.getDesLongitude();
-        String desLatitude = forecastPriceDto.getDesLatitude();
+        String destLongitude = forecastPriceDto.getDestLongitude();
+        String destLatitude = forecastPriceDto.getDestLatitude();
     
-        return directionService.driving(depLongitude, depLatitude, desLongitude, desLatitude);
+        return directionService.driving(depLongitude, depLatitude, destLongitude, destLatitude);
     }
 }

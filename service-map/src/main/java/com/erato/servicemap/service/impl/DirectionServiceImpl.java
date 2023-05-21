@@ -18,9 +18,11 @@ public class DirectionServiceImpl implements DirectionService {
     MapDirectionClient mapDirectionClient;
     
     @Override
-    public ResponseResult driving(String depLongitude, String depLatitude, String desLongitude, String desLatitude) {
-    
-        DirectionResponse direction = mapDirectionClient.direction(depLongitude, depLatitude, desLongitude, desLatitude);
+    public ResponseResult driving(String depLongitude, String depLatitude, String destLongitude, String destLatitude) {
+
+        // 调用高德
+        DirectionResponse direction = mapDirectionClient.direction(depLongitude, depLatitude, destLongitude, destLatitude);
+        System.out.println(direction);
     
         return ResponseResult.success().setData(direction);
     }
