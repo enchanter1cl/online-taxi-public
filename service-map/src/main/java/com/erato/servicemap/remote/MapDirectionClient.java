@@ -27,7 +27,7 @@ public class MapDirectionClient {
     RestTemplate restTemplate;
     
     public DirectionResponse direction(String depLongitude, String depLatitude, String desLongitude, String desLatitude) {
-        // assemble url
+        // assemble url 组装url
         /*
         * https://restapi.amap.com/v3/direction/driving?origin=116.45925,39.910031&destination=116.587922,40.081577&output=xml&key=<用户的key>
         */
