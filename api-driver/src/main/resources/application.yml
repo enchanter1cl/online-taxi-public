@@ -1,0 +1,12 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: api-driver
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+        namespace: public
