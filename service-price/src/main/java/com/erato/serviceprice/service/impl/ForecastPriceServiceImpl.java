@@ -1,11 +1,11 @@
-package com.erato.service.price.service.impl;
+package com.erato.serviceprice.service.impl;
 
 import com.erato.internalcommon.dto.ForecastPriceDTO;
 import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.internalcommon.response.DirectionResponse;
 import com.erato.internalcommon.response.ForecastPriceResponse;
-import com.erato.service.price.remote.ServiceMapClient;
-import com.erato.service.price.service.ForecastPriceService;
+import com.erato.serviceprice.remote.ServiceMapClient;
+import com.erato.serviceprice.service.ForecastPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

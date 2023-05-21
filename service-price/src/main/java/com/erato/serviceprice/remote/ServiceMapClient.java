@@ -1,4 +1,4 @@
-package com.erato.service.price.remote;
+package com.erato.serviceprice.remote;
 
 import com.erato.internalcommon.dto.ForecastPriceDTO;
 import com.erato.internalcommon.dto.ResponseResult;

@@ -1,4 +1,4 @@
-package com.erato.service.price.service;
+package com.erato.serviceprice.service;
 
 import com.erato.internalcommon.dto.ResponseResult;
 

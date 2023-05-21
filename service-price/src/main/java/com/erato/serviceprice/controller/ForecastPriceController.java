@@ -1,8 +1,8 @@
-package com.erato.service.price.controller;
+package com.erato.serviceprice.controller;
 
 import com.erato.internalcommon.dto.ForecastPriceDTO;
 import com.erato.internalcommon.dto.ResponseResult;
-import com.erato.service.price.service.ForecastPriceService;
+import com.erato.serviceprice.service.ForecastPriceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package com.erato.service.price;
+package com.erato.serviceprice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
