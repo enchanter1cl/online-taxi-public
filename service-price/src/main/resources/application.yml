@@ -10,3 +10,9 @@ spring:
       discovery:
         server-addr: 127.0.0.1:8848
         namespace: public
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc://localhost:3306?taxi?characterEncoding=utf-8&serverTimezone=GMT%2B8
+    username: root
+    password: root
