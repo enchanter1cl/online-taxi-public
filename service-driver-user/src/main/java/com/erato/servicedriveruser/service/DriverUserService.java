@@ -2,6 +2,7 @@ package com.erato.servicedriveruser.service;
 
 
 import com.erato.internalcommon.dto.DriverUser;
+import com.erato.internalcommon.dto.ResponseResult;
 
 /**
  * (DriverUser)表服务接口
@@ -10,6 +11,8 @@ import com.erato.internalcommon.dto.DriverUser;
  * @since 2023-05-21 23:33:02
  */
 public interface DriverUserService {
+
+    public ResponseResult getDriverUserByPhone(String driverUser);
 
     /**
      * 通过ID查询单条数据

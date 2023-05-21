@@ -1,6 +1,7 @@
 package com.erato.servicedriveruser.controller;
 
 import com.erato.internalcommon.dto.DriverUser;
+import com.erato.internalcommon.dto.ResponseResult;
 import com.erato.servicedriveruser.service.DriverUserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +15,19 @@ import javax.annotation.Resource;
  * @since 2023-05-21 23:33:00
  */
 @RestController
-@RequestMapping("driver-user")
+//@RequestMapping("driver-user")
 public class DriverUserController {
     /**
      * 服务对象
      */
     @Resource
     private DriverUserService driverUserService;
+
+    @GetMapping("/check-driver/{phone}")
+    public ResponseResult getUser(@PathVariable("phone")String phone) {
+
+        return driverUserService.getDriverUserByPhone(phone);
+    }
 
     /**
      * 分页查询
