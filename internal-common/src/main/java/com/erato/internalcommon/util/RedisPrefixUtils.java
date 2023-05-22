@@ -15,7 +15,7 @@ public class RedisPrefixUtils {
      * @return
      */
     public static String generateVerificationCodeKey(String passengerPhone, String identity) {
-        return verificationCodePrefix + "-" + identity + "-" + passengerPhone;
+        return verificationCodePrefix + identity + "-" + passengerPhone;
     }
     public static String generateTokenKey(String phone, String identity, String tokenType) {
         return tokenPrefix + phone + "-" + identity + "-" + tokenType;
