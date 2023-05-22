@@ -39,7 +39,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
         int numberCode = numberCodeResp.getData().getNumberCode();
     
         // store into redis
-        String key = RedisPrefixUtils.generateVerificationCodeKey(passengerPhone);
+        String key = RedisPrefixUtils.generateVerificationCodeKey(passengerPhone, "1");
         strRedisTemplate.opsForValue().set(key, numberCode+"", 2, TimeUnit.MINUTES);
         
         //send message text  腾讯 阿里 华信 容联..
@@ -51,7 +51,7 @@ public class VerificationCodeServiceImpl implements VerificationCodeService {
     public ResponseResult checkCode(String passengerPhone, String verificationCode) {
         
         // read phone's verification code from redis
-        String key = RedisPrefixUtils.generateVerificationCodeKey(passengerPhone);
+        String key = RedisPrefixUtils.generateVerificationCodeKey(passengerPhone, "1");
         String redisCode = strRedisTemplate.opsForValue().get(key);
         if (StringUtils.isBlank(redisCode)) {
             return ResponseResult.fail(CommonStatusEnum.VERIFICATION_CODE_ERROR.getCode(), CommonStatusEnum.VERIFICATION_CODE_ERROR.getValue());

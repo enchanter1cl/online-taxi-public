@@ -5,6 +5,12 @@ spring:
   application:
     name: api-driver
 
+  redis:
+    host: 121.37.71.228
+    port: 6380
+    database: 2
+    password: foobared
+
   cloud:
     nacos:
       discovery:
