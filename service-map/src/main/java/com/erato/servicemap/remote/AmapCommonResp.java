@@ -1,4 +1,4 @@
-package com.erato.servicemap.response;
+package com.erato.servicemap.remote;
 
 import lombok.Data;
 

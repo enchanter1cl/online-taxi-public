@@ -4,8 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.TypeReference;
 import com.erato.internalcommon.constant.AmapConfigConstants;
 import com.erato.internalcommon.dto.ResponseResult;
-import com.erato.servicemap.response.AddSvcResp;
-import com.erato.servicemap.response.AmapCommonResp;
+import com.erato.servicemap.response.ServiceResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -33,7 +32,7 @@ public class ServiceClient {
      * @param name
      * @return
      */
-    public ResponseResult<String> add(String name){
+    public ResponseResult<ServiceResponse> add(String name){
         // assemble url 组装url
         /*
          * https://restapi.a....
@@ -58,6 +57,9 @@ public class ServiceClient {
             return ResponseResult.fail("高德错误");
         }
         String sid = addSvcCommResp.getData().getSid();
-        return ResponseResult.success(sid);
+
+        ServiceResponse serviceResponse = new ServiceResponse();
+        serviceResponse.setSid(sid);
+        return ResponseResult.success(serviceResponse);
     }
 }
