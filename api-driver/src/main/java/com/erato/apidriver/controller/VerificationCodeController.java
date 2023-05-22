@@ -19,6 +19,6 @@ public class VerificationCodeController {
 
         String driverPhone = verificationCodeDTO.getDriverPhone();
         ResponseResult responseResult = verificationCodeService.checkAndSendVerificationCode(driverPhone);
-        return null;
+        return ResponseResult.success(responseResult);
     }
 }
